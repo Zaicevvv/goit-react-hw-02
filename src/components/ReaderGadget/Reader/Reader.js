@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Publication from '../Publication/Publication';
 import Counter from '../Counter/Counter';
-// import Controls from '../Controls/Controls';
+import Controls from '../Controls/Controls';
 import css from './Reader.module.css';
 
 export default class Reader extends Component {
@@ -17,7 +17,19 @@ export default class Reader extends Component {
   };
 
   state = {
-    publicationToShowNumber: 1,
+    publicationToShowNumber: 0,
+  };
+
+  handleIncrement = () => {
+    this.setState(state => ({
+      publicationToShowNumber: state.publicationToShowNumber + 1,
+    }));
+  };
+
+  handleDecrement = () => {
+    this.setState(state => ({
+      publicationToShowNumber: state.publicationToShowNumber - 1,
+    }));
   };
 
   render() {
@@ -28,6 +40,12 @@ export default class Reader extends Component {
       <div className={css.reader}>
         <Publication items={items} number={publicationToShowNumber} />
         <Counter number={publicationToShowNumber} counterMax={items.length} />
+        <Controls
+          number={publicationToShowNumber}
+          counterMax={items.length}
+          onIncrement={this.handleIncrement}
+          onDecrement={this.handleDecrement}
+        />
       </div>
     );
   }

@@ -2,12 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import css from './Controls.module.css';
 
-const Controls = ({ onIncrement, onDecrement }) => (
+const Controls = ({ onIncrement, onDecrement, number, counterMax }) => (
   <section className={css.controls}>
-    <button type="button" className={css.button} onClick={onDecrement}>
+    <button
+      type="button"
+      className={css.button}
+      onClick={onDecrement}
+      disabled={number === 0 && true}
+    >
       Назад
     </button>
-    <button type="button" className={css.button} onClick={onIncrement}>
+    <button
+      type="button"
+      className={css.button}
+      onClick={onIncrement}
+      disabled={number === counterMax - 1 && true}
+    >
       Вперед
     </button>
   </section>
@@ -16,6 +26,8 @@ const Controls = ({ onIncrement, onDecrement }) => (
 Controls.propTypes = {
   onIncrement: PropTypes.func.isRequired,
   onDecrement: PropTypes.func.isRequired,
+  number: PropTypes.number.isRequired,
+  counterMax: PropTypes.number.isRequired,
 };
 
 export default Controls;

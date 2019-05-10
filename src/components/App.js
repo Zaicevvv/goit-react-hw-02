@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import React, { Fragment } from 'react';
 import publications from './ReaderGadget/publications';
 import Reader from './ReaderGadget/Reader/Reader';
+import movies from './MovieFilter/movies';
+import MoviePage from './MovieFilter/MoviePage/MoviePage';
 
-export default class App extends Component {
-  state = {};
+const App = () => (
+  <Fragment>
+    <Reader items={publications} />
+    <MoviePage items={movies} />
+  </Fragment>
+);
 
-  render() {
-    return <Reader items={publications} />;
-  }
-}
+export default App;

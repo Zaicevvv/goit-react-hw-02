@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Controls from '../Controls/Controls';
+// import Controls from '../Controls/Controls';
 import css from './Counter.module.css';
 
 export default class Counter extends Component {
@@ -11,23 +11,13 @@ export default class Counter extends Component {
 
   state = {};
 
-  handleIncrement = () => {};
-
-  handleDecrement = () => {};
-
   render() {
     const { number, counterMax } = this.props;
 
     return (
-      <Fragment>
-        <p className={css.counter}>
-          {number}/{counterMax}
-        </p>
-        <Controls
-          onIncrement={this.handleIncrement}
-          onDecrement={this.handleDecrement}
-        />
-      </Fragment>
+      <p className={css.counter}>
+        {number + 1}/{counterMax}
+      </p>
     );
   }
 }
