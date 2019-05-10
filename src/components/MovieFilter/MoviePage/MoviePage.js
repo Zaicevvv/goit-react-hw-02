@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import css from './MoviePage.module.css';
 import MovieGrid from '../MovieGrid/MovieGrid';
 import SearchBar from '../SearchBar/SearchBar';
@@ -10,9 +10,13 @@ const filterMovies = (query, movies) =>
   );
 
 export default class MoviePage extends Component {
+  static propTypes = {
+    items: PropTypes.arrayOf(Object).isRequired,
+  };
+
   state = {
     query: '',
-    movies: this.items,
+    movies: this.props.items,
   };
 
   handleSearch = e => this.setState({ query: e.target.value });
