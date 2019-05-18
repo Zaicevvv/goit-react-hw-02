@@ -20,9 +20,6 @@ MovieGrid.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      posterUrl: PropTypes.string.isRequired,
-      overview: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
 };

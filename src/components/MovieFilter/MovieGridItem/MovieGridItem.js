@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import css from './MovieGridItem.module.css';
 
-const MovieGridItem = ({ key, title, url, desc }) => (
-  <div className={css.card} key={key}>
+const MovieGridItem = ({ title, url, desc }) => (
+  <div className={css.card}>
     <img src={url} alt={title} />
     <div className={css.content}>
       <h2>{title}</h2>
@@ -13,7 +13,6 @@ const MovieGridItem = ({ key, title, url, desc }) => (
 );
 
 MovieGridItem.propTypes = {
-  key: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   desc: PropTypes.string.isRequired,
