@@ -2,22 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import css from './Publication.module.css';
 
-const Publication = ({ items, number }) => (
-  <section key={items[number].id} className={css.publication}>
-    <h2>{items[number].title}</h2>
-    <p>{items[number].text}</p>
+const Publication = ({ item }) => (
+  <section key={item.id} className={css.publication}>
+    <h2>{item.title}</h2>
+    <p>{item.text}</p>
   </section>
 );
 
 Publication.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-    }).isRequired,
-  ).isRequired,
-  number: PropTypes.number.isRequired,
+  item: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Publication;

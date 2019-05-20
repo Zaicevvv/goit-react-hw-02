@@ -1,23 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-// import Controls from '../Controls/Controls';
 import css from './Counter.module.css';
 
-export default class Counter extends Component {
-  static propTypes = {
-    number: PropTypes.number.isRequired,
-    counterMax: PropTypes.number.isRequired,
-  };
+const Counter = ({ number, counterMax }) => (
+  <p className={css.counter}>
+    {number + 1}/{counterMax}
+  </p>
+);
 
-  state = {};
+export default Counter;
 
-  render() {
-    const { number, counterMax } = this.props;
-
-    return (
-      <p className={css.counter}>
-        {number + 1}/{counterMax}
-      </p>
-    );
-  }
-}
+Counter.propTypes = {
+  number: PropTypes.number.isRequired,
+  counterMax: PropTypes.number.isRequired,
+};

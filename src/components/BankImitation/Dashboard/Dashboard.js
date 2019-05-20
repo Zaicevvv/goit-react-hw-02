@@ -12,36 +12,48 @@ export default class Dashboard extends Component {
     balance: 0,
   };
 
-  handleDeposit = (name, value) => {
-    const nowDate = new Date();
-    const transaction = {
-      id: shortid.generate(),
-      type: name,
-      amount: value,
-      date: nowDate.toLocaleString(),
-    };
+  handleDeposit = inputValue => {
+    const value = Number(inputValue);
 
-    this.setState(state => ({ history: [...state.history, transaction] }));
+    if (value === 0) {
+      alert('Введите сумму для проведения операции!');
+    } else {
+      const nowDate = new Date();
+      const transaction = {
+        id: shortid.generate(),
+        type: 'Deposit',
+        amount: value,
+        date: nowDate.toLocaleString(),
+      };
 
-    this.setState(state => ({
-      balance: state.balance + value,
-    }));
+      this.setState(state => ({
+        history: [...state.history, transaction],
+        balance: state.balance + value,
+      }));
+    }
   };
 
-  handleWithdraw = (name, value) => {
-    const nowDate = new Date();
-    const transaction = {
-      id: shortid.generate(),
-      type: name,
-      amount: value,
-      date: nowDate.toLocaleString(),
-    };
+  handleWithdraw = inputValue => {
+    const value = Number(inputValue);
 
-    this.setState(state => ({ history: [...state.history, transaction] }));
+    if (value > this.state.balance) {
+      alert('На счету недостаточно средств для проведения операции!');
+    } else if (value === 0) {
+      alert('Введите сумму для проведения операции!');
+    } else {
+      const nowDate = new Date();
+      const transaction = {
+        id: shortid.generate(),
+        type: 'Withdraw',
+        amount: value,
+        date: nowDate.toLocaleString(),
+      };
 
-    this.setState(state => ({
-      balance: state.balance - value,
-    }));
+      this.setState(state => ({
+        history: [...state.history, transaction],
+        balance: state.balance - value,
+      }));
+    }
   };
 
   render() {
@@ -52,9 +64,16 @@ export default class Dashboard extends Component {
         <Controls
           onDepositClick={this.handleDeposit}
           onWithdrawClick={this.handleWithdraw}
-          balance={balance}
         />
-        <Balance balance={balance} transactions={history} />
+        <Balance
+          balance={balance}
+          income={history
+            .filter(transaction => transaction.type === 'Deposit')
+            .reduce((acc, item) => acc + item.amount, 0)}
+          expenses={history
+            .filter(transaction => transaction.type === 'Withdraw')
+            .reduce((acc, item) => acc + item.amount, 0)}
+        />
         <TransactionHistory transactions={history} />
       </div>
     );

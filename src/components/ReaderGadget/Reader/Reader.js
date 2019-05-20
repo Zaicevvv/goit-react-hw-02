@@ -38,7 +38,7 @@ export default class Reader extends Component {
 
     return (
       <div className={css.reader}>
-        <Publication items={items} number={publicationToShowNumber} />
+        <Publication item={items[publicationToShowNumber]} />
         <Counter number={publicationToShowNumber} counterMax={items.length} />
         <Controls
           number={publicationToShowNumber}
