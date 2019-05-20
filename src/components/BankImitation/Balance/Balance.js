@@ -14,7 +14,7 @@ const Balance = ({ balance, transactions }) => (
     <span>
       ⬇
       {transactions
-        .filter(transaction => transaction.type === 'Withdrawal')
+        .filter(transaction => transaction.type === 'Withdraw')
         .reduce((acc, item) => acc + item.amount, 0)}
       $
     </span>

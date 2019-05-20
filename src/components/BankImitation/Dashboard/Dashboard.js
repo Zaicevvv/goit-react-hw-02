@@ -5,69 +5,43 @@ import Balance from '../Balance/Balance';
 import TransactionHistory from '../TransactionHistory/TransactionHistory';
 
 const shortid = require('shortid');
-// import PropTypes from 'prop-types';
 
 export default class Dashboard extends Component {
   state = {
-    history: [
-      {
-        id: '1',
-        type: 'deposit',
-        amount: 100,
-        date: 'tonight',
-      },
-      {
-        id: '2',
-        type: 'withdrawal',
-        amount: 200,
-        date: 'tonight2',
-      },
-      {
-        id: '3',
-        type: 'Deposit',
-        amount: 100,
-        date: 'tonight3',
-      },
-      {
-        id: '4',
-        type: 'Withdrawal',
-        amount: 200,
-        date: 'tonight4',
-      },
-    ],
+    history: [],
     balance: 0,
   };
 
-  onCheckTransaction = e => {
-    const { name } = e.target;
-    const value = Number(e.target.value);
-
-    if (name === 'Withdraw' && value > this.state.balance) {
-      alert('На счету недостаточно средств для проведения операции!');
-    } else if (value === 0) {
-      alert('Введите сумму для проведения операции!');
-    } else this.addTransaction(name, value);
-  };
-
-  addTransaction = (name, value) => {
+  handleDeposit = (name, value) => {
+    const nowDate = new Date();
     const transaction = {
       id: shortid.generate(),
       type: name,
       amount: value,
-      date: Date.prototype.toLocaleString(),
+      date: nowDate.toLocaleString(),
     };
 
-    this.setState({ history: [...this.history, transaction] });
+    this.setState(state => ({ history: [...state.history, transaction] }));
 
-    if (name === 'Deposit') {
-      this.setState(state => ({
-        balance: state.balance + value,
-      }));
-    } else {
-      this.setState(state => ({
-        balance: state.balance - value,
-      }));
-    }
+    this.setState(state => ({
+      balance: state.balance + value,
+    }));
+  };
+
+  handleWithdraw = (name, value) => {
+    const nowDate = new Date();
+    const transaction = {
+      id: shortid.generate(),
+      type: name,
+      amount: value,
+      date: nowDate.toLocaleString(),
+    };
+
+    this.setState(state => ({ history: [...state.history, transaction] }));
+
+    this.setState(state => ({
+      balance: state.balance - value,
+    }));
   };
 
   render() {
@@ -75,7 +49,11 @@ export default class Dashboard extends Component {
 
     return (
       <div className={css.dashboard}>
-        <Controls onClick={this.onCheckTransaction} />
+        <Controls
+          onDepositClick={this.handleDeposit}
+          onWithdrawClick={this.handleWithdraw}
+          balance={balance}
+        />
         <Balance balance={balance} transactions={history} />
         <TransactionHistory transactions={history} />
       </div>

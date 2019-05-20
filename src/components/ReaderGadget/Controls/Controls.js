@@ -8,7 +8,7 @@ const Controls = ({ onIncrement, onDecrement, number, counterMax }) => (
       type="button"
       className={css.button}
       onClick={onDecrement}
-      disabled={number === 0 && true}
+      disabled={number === 0}
     >
       Назад
     </button>
@@ -16,7 +16,7 @@ const Controls = ({ onIncrement, onDecrement, number, counterMax }) => (
       type="button"
       className={css.button}
       onClick={onIncrement}
-      disabled={number === counterMax - 1 && true}
+      disabled={number === counterMax - 1}
     >
       Вперед
     </button>
